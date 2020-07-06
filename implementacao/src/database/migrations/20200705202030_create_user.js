@@ -9,9 +9,9 @@ exports.up = function(knex) {
       table.string('cep', 8).notNullable();
       table.string('address').notNullable();
       table.string('phone').notNullable();
-      table.date('birthday').notNullable();
-      table.boolean('seguroGarantido').notNullable();
-      table.boolean('student').notNullable();
+      table.date('birthday')
+      table.boolean('seguroGarantido')
+      table.boolean('student')
         
 
       table.unique(['email', 'cpf', 'rg']);

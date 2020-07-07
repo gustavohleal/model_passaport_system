@@ -6,21 +6,20 @@ module.exports = {
     async create(req, res) {
         const { email, passwd } = req.body;
 
-        const passwdHash = crypto.createHash('sha256').update(passwd).digest('hex');
-        console.log(passwdHash)
-
+        //const passwdHash = crypto.createHash('sha256').update(passwd).digest('hex');
+        console.log(email, passwd)
         const user = await db('users')
             .where({
                 'email': email,
-                'passwd': passwdHash
+                'passwd': passwd,
                 })
             .select('*')
             .first();
-
+        console.log(user)
         if(!user) {
-            return res.status(400).json({ error: 'No user found with this email'});
+            return res.status(400).json({ error: 'Usuário não encontrado'});
         }
-        
-        return res.json(user);
+        const {id, name} = user;
+        return res.json({id, name});
     }
 }

@@ -8,6 +8,8 @@ routes.post('/sessions', SessionController.create);
 
 routes.get('/users', UserController.index );
 
-routes.post('/users', UserController.create);
+routes.get('/user', UserController.getUser );
+
+routes.post('/users', UserController.create );
 
 module.exports = routes

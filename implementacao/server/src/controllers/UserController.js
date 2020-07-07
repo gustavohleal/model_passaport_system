@@ -5,14 +5,13 @@ module.exports = {
     async create(req, res) {
         const { name, email, passwd, cpf, rg, address, cep, phone, birthday } = req.body;
 
-        const passwdHash = crypto.createHash('sha256').update(passwd).digest('hex');
-        console.log(passwdHash)
+        //const passwdHash = crypto.createHash('sha256').update(passwd).digest('hex');
 
         try{
-            const id = await db('users').insert({
+            await db('users').insert({
                 name,
                 email,
-                passwd: passwdHash,
+                passwd,
                 cpf,
                 rg,
                 address,
@@ -25,13 +24,27 @@ module.exports = {
             return res.json(e)
         }
             
-        return res.json({ id });
+        return res.json( '200' );
     },
 
     async index(req, res) {
         const users = await db('users').select('*');
     
         return res.json(users);
+    },
+
+    async getUser(req, res) {
+        const email = req.headers.authorization;
+        console.log(email)
+        const id = await db('users').where({'email': email}).first().select('id')
+        //try{
+        //    const id = await db('users').where('email', email).select('*');
+        //} catch(e) {
+        //    console.log("User not found");
+        //    return res.json(e);
+        //}
+//
+        return res.json(id);
     }
 
 }

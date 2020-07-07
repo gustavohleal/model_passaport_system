@@ -14,7 +14,9 @@ exports.up = function(knex) {
       table.boolean('student')
         
 
-      table.unique(['email', 'cpf', 'rg']);
+      table.unique('email');
+      table.unique('cpf');
+      table.unique('rg');
     });
   };
   
